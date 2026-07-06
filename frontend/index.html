@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>校园二手交易平台</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>校园二手交易平台</h1>
+      <p>商品发布、检索、下单和订单流转工作台</p>
+    </div>
+    <div class="api-status">
+      <span id="apiDot" class="dot"></span>
+      <span id="apiStatus">连接中</span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <section class="panel">
+        <div class="panel-title">
+          <h2>登录</h2>
+          <button id="logoutBtn" class="ghost hidden" type="button">退出</button>
+        </div>
+        <form id="loginForm" class="form">
+          <label>
+            示例账号
+            <select id="loginUsername" autocomplete="username" required>
+              <option value="alice">学生账号一（小艾）</option>
+              <option value="bob">学生账号二（小博）</option>
+              <option value="admin">管理员账号</option>
+            </select>
+          </label>
+          <label>
+            密码
+            <input id="loginPassword" type="password" autocomplete="current-password" value="123456" required>
+          </label>
+          <button type="submit">登录</button>
+        </form>
+        <div id="userCard" class="user-card hidden"></div>
+      </section>
+
+      <section class="panel">
+        <h2>发布商品</h2>
+        <form id="productForm" class="form">
+          <label>
+            标题
+            <input id="productTitle" maxlength="120" placeholder="例如：高等数学教材" required>
+          </label>
+          <label>
+            分类
+            <select id="productCategory" required>
+              <option value="Books">图书教材</option>
+              <option value="Electronics">数码电器</option>
+              <option value="Daily Goods">生活用品</option>
+              <option value="Sports">运动户外</option>
+              <option value="Clothing">服饰鞋包</option>
+              <option value="Other">其他</option>
+            </select>
+          </label>
+          <div class="two-col">
+            <label>
+              价格
+              <input id="productPrice" type="number" min="0.01" step="0.01" value="20.00" required>
+            </label>
+            <label>
+              成色
+              <input id="productCondition" maxlength="60" value="九成新">
+            </label>
+          </div>
+          <label>
+            交易地点
+            <input id="productLocation" maxlength="120" placeholder="图书馆门口">
+          </label>
+          <label>
+            描述
+            <textarea id="productDescription" rows="4" maxlength="4000" placeholder="写清楚物品情况、配件、可交易时间等" required></textarea>
+          </label>
+          <button type="submit">创建并发布</button>
+        </form>
+      </section>
+    </aside>
+
+    <section class="content">
+      <nav class="tabs" aria-label="功能切换">
+        <button class="tab active" data-tab="market" type="button">商品市场</button>
+        <button class="tab" data-tab="mine" type="button">我的商品</button>
+        <button class="tab" data-tab="orders" type="button">我的订单</button>
+      </nav>
+
+      <section id="marketTab" class="tab-page active">
+        <div class="toolbar">
+          <div class="search-row">
+            <input id="searchKeyword" placeholder="搜索商品标题或描述">
+            <select id="searchCategory">
+              <option value="">全部分类</option>
+              <option value="Books">图书教材</option>
+              <option value="Electronics">数码电器</option>
+              <option value="Daily Goods">生活用品</option>
+              <option value="Sports">运动户外</option>
+              <option value="Clothing">服饰鞋包</option>
+              <option value="Other">其他</option>
+            </select>
+            <button id="searchBtn" type="button">搜索</button>
+            <button id="refreshMarketBtn" class="secondary" type="button">刷新</button>
+          </div>
+        </div>
+        <div id="marketList" class="grid"></div>
+      </section>
+
+      <section id="mineTab" class="tab-page">
+        <div class="toolbar">
+          <button id="refreshMineBtn" type="button">刷新我的商品</button>
+        </div>
+        <div id="mineList" class="grid"></div>
+      </section>
+
+      <section id="ordersTab" class="tab-page">
+        <div class="toolbar">
+          <button id="refreshOrdersBtn" type="button">刷新订单</button>
+        </div>
+        <div id="orderList" class="order-list"></div>
+      </section>
+    </section>
+  </main>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

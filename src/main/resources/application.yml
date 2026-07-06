@@ -1,0 +1,50 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: campus-second-hand-trading-platform
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3307}/${MYSQL_DATABASE:campus_trade}?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    username: ${MYSQL_USER:campus}
+    password: ${MYSQL_PASSWORD:campus123}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: Asia/Shanghai
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:}
+    timeout: 3s
+  cache:
+    type: redis
+    redis:
+      time-to-live: 10m
+  elasticsearch:
+    uris: ${ELASTICSEARCH_URIS:http://localhost:9200}
+    username: ${ELASTICSEARCH_USERNAME:}
+    password: ${ELASTICSEARCH_PASSWORD:}
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:CampusSecondHandTradingPlatformJwtSecretKeyForLocalDevelopmentOnly2026}
+    expiration-minutes: ${JWT_EXPIRATION_MINUTES:1440}
+  cache:
+    home-products-ttl-minutes: 10
+
+logging:
+  level:
+    org.hibernate.SQL: warn
+    org.springframework.security: info
